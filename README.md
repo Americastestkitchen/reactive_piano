@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Piano Template Rendering Library
+This is a POC for using React to componentize our Piano Templates.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+To run:
+- clone and `nmp i`
 
-In the project directory, you can run:
 
-### `npm start`
+The workflow process would be something like this:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The developer is working on a template: For instant feedback they can use HMR and components
+to get instant feedback by running `npm run start` and working on the components like any other React app.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+When the template is looking the way that we need, the developer can run `npm run build` which will build
+out the transpiled JavaScript code. Because we need a server to use React, if the developer runs `node server/index.js`
+they will start up a server. This is the little hacky part that can be ironed out. When the developer visits [port:808](localhost:8080) They will trigger a file read out of the targeted React component into the outPutFile in the templates directory.
 
-### `npm test`
+The developer will have to manually change which component they want to be built out. It currently doesn't support writing
+multiple files, but this is just a poc.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Benefits:
+1. The templates can be kept in source control
+2. The templates are the property of ATK, if the Piano Servers crashed or if the company went under we would still
+have complete control and access to our templates.
+3. Piano has terrible DX. There is no linting or any other IDE benefits at all. This way we can use VSCode to create
+templates.
+4. We can have these components as MiseUI components if we wanted, and we could share them through other pages.
+5. They are React components. If we woke up out of our slumber one day and realized the sins of our past and decided
+to forgo Piano because they offer us nothing but pain, we could make a really quick transition to rendering marketing
+hats/paywalls/misc landing pages/ ribbons out of espresso. The transgressions will be forgiven and we can then start the
+process of healing.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Cons:
+1. We have to copy/paste html + css into their terrible IDE.
+2. CSS is half/con because you can reference and import assets from elsewhere so maybe we could point it to a
+cdn with the assets on it.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Todo:
+- Create an executable that will run the server
+- Figure out a way to use React without using express? I am not sure if that is possible for the `renderToString` method
+on the React-DOM-Server package.
+- Make ease of life improvements to the server.js file, currently we would have to manually tell it what component to render
+and where. That could be helped with maybe command line functionality?
